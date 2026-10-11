@@ -20,5 +20,4 @@ used by the Mplus models and figure script. The generated dataset is not
 tracked in Git.
 
 To skip data preparation, download `MPLUS_scale_ordered_intervals2.dat` from
-Zenodo directly into `Data/`. The Zenodo record also contains the Mplus
-companion input file and supplementary material.
+Zenodo directly into `Data/`.
