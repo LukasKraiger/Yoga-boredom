@@ -85,7 +85,7 @@ Rscript indirect_effect.R
 
 ## Data protection note
 
-The study data use a pseudonymous participant identifier (`userId`) to link repeated measurements within participants. The raw files should be handled according to institutional ethics and data-protection requirements.
+The study data use a pseudonymous participant identifier (`userId`) to link repeated measurements within participants.
 
 ## License
 
