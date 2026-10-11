@@ -1,0 +1,22 @@
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+*.Rproj.user
+.Renviron
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Mplus / output files
+*.out
+*.log
+*.lst
+*.dat
+
+# Project-specific generated files
+*.tmp
+*.bak

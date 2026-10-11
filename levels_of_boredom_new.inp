@@ -1,0 +1,20 @@
+TITLE: Levels of Boredom - Unconditional Wald Test vs 1
+DATA: FILE = "../../1_Data/2_AnalysisData/MPLUS_scale_ordered_intervals2.dat";
+VARIABLE:
+  NAMES = userId BO VA OC UC MO intervaldays;
+  USEVARIABLES = userId BO;
+  CLUSTER = userId;
+
+ANALYSIS:
+  TYPE = TWOLEVEL;
+
+MODEL:
+  %WITHIN%
+    BO;
+
+  %BETWEEN%
+    [BO] (b0);
+    BO;
+
+MODEL TEST:
+  b0 = 1;

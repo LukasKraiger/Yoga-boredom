@@ -1,0 +1,43 @@
+TITLE: Valence - Mediation analysis using DSEM according to Fang et al.
+DATA: FILE = "../../../1_Data/2_AnalysisData/MPLUS_scale_ordered_intervals2.dat";
+VARIABLE:
+	NAMES = userId BO VA OC UC MO intervaldays;
+	USEVARIABLES = userId BO MO time;
+	WITHIN = time;
+	LAGGED = MO(1) BO(1);
+	CLUSTER = userId;
+	TINTERVAL = intervaldays(1);
+	MISSING=.;
+DEFINE:
+	time=intervaldays;
+ANALYSIS:
+	TYPE = TWOLEVEL RANDOM;
+	PROCESSORS = 2;
+	ESTIMATOR = BAYES;
+	BITERATIONS=(5000);
+	THIN = 10;
+  BSEED = 285380;
+	
+MODEL:
+	%WITHIN%
+	BETAxMO | MO^ ON MO^1;   !autoregressive effect
+	BETAmbo | BO^ ON BO^1;   !autoregressive effect
+	H4b | MO^ ON BO^1;
+	trend1 | MO ON time;    !time predicts overchallenge (X)
+	trend2 | BO ON time;    !time predicts boredom (M)
+
+	
+	%BETWEEN%
+	[MO];[BO]; !averge individual means
+	[BETAxMO]; [BETAmbo]; !average autoregressive effect
+	[trend1]; [trend2]; !average of residual variance
+	[H4b](a);
+	MO;
+	BO;
+	BETAxMO;
+	BETAmbo;
+	H4b;
+	trend1;trend2;
+	
+OUTPUT: tech1 tech8 cinterval(hpd) standardized (cluster);
+plot: type=plot3;
