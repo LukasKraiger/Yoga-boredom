@@ -1,31 +1,39 @@
-# Yoga Boredom Study: Analysis Code
+# Yoga Boredom
 
-This repository contains the reproducible analysis workflow for the longitudinal yoga and boredom study. It includes data-preparation scripts, Mplus model specifications, and scripts for indirect-effect calculations used in the mediation analyses.
+This repository contains the analysis workflow for the longitudinal study on yoga and boredom. It includes the data-preparation script, Mplus model specifications, code for the figure output, and scripts for indirect-effect estimation.
 
-## Project overview
+## Overview
 
-The analyses are based on repeated-measures questionnaire data collected after yoga sessions. The workflow prepares a long-format dataset, computes scale scores, and fits multilevel mediation models in Mplus.
+The project analyzes repeated post-session questionnaire data collected during a yoga intervention. The workflow follows a reproducible pipeline:
+
+1. import the raw questionnaire exports
+2. clean and filter the participant data
+3. compute scale scores for boredom, valence, overchallenge, underchallenge, and mood
+4. prepare a long-format dataset for multilevel longitudinal modeling
+5. fit the mediation models in Mplus
+6. estimate indirect effects and generate the figure output
 
 ## Repository contents
 
-- `data_prep.R` — pre-processes the raw questionnaire exports and creates the Mplus-ready analysis dataset
-- `indirect_effect.R` — reads Mplus estimates and calculates indirect effects
-- `mediation_RDSEM_H1_intervall.inp` — longitudinal mediation model 1
-- `mediation_RDSEM_H2_intervall.inp` — longitudinal mediation model 2
-- `mediation_RDSEM_H3_intervall.inp` — longitudinal mediation model 3
-- `mediation_RDSEM_H4_intervall.inp` — longitudinal mediation model 4
-- `mediation_RDSEM_H5_OC_intervall.inp` — mediation model for overchallenge
-- `mediation_RDSEM_H5_UC_intervall.inp` — mediation model for underchallenge
-- `mediation_RDSEM_H5_VA_intervall.inp` — mediation model for valence
-- `levels_of_boredom_new.inp` — additional boredom-level model specification
+- `data_prep.R` — prepares the raw CSV files and creates the Mplus-ready dataset
+- `Figure 1 Violin Plot.R` — reproduces the violin plot figure from the prepared dataset
+- `indirect_effect.R` — extracts Mplus estimates and computes indirect effects
+- `mediation_RDSEM_H1_intervall.inp` — model H1
+- `mediation_RDSEM_H2_intervall.inp` — model H2
+- `mediation_RDSEM_H3_intervall.inp` — model H3
+- `mediation_RDSEM_H4_intervall.inp` — model H4
+- `mediation_RDSEM_H5_OC_intervall.inp` — model H5 for overchallenge
+- `mediation_RDSEM_H5_UC_intervall.inp` — model H5 for underchallenge
+- `mediation_RDSEM_H5_VA_intervall.inp` — model H5 for valence
+- `levels_of_boredom_new.inp` — additional boredom-level model
 
 ## Requirements
 
-To reproduce the analyses, you need:
+To run the code, you need:
 
-- R (version 4.x or later recommended)
+- R (4.x or newer recommended)
 - Mplus
-- The following R packages:
+- R packages:
   - `misty`
   - `MplusAutomation`
   - `officer`
@@ -33,43 +41,56 @@ To reproduce the analyses, you need:
   - `dplyr`
   - `lubridate`
   - `tidyr`
+  - `ggplot2`
 
 ## Reproducible workflow
 
-1. Place the raw data files in the adjacent `Data/raw/` directory.
-2. Run the data preparation script:
+### 1. Prepare the analysis data
 
-   ```bash
-   Rscript data_prep.R
-   ```
+From the `Code/` folder, run:
 
-3. Confirm that the prepared file is created in the `Data/` directory:
+```bash
+Rscript data_prep.R
+```
 
-   ```text
-   Data/MPLUS_scale_ordered_intervals2.dat
-   ```
+This creates the file:
 
-4. Run the relevant Mplus models in the `Code/` directory.
-5. Estimate indirect effects from the Mplus output:
+```text
+../Data/MPLUS_scale_ordered_intervals2.dat
+```
 
-   ```bash
-   Rscript indirect_effect.R
-   ```
+### 2. Reproduce the figure
 
-## Notes on the analysis scripts
+From the `Code/` folder, run:
 
-- The R scripts are written with English comments to improve reuse and transparency.
-- The processing workflow is fully script-based and can be rerun from the raw source data.
-- File paths are relative to the project folder; if you move the repository, update the paths as needed.
+```bash
+Rscript "Figure 1 Violin Plot.R"
+```
 
-## Data protection and reuse
+This script checks whether the prepared dataset exists and will create the figure output in the `Code/` folder.
 
-The scripts use the pseudonymous `userId` variable to link repeated measurements within the same participant while avoiding direct personal identifiers in the analytical data.
+### 3. Run the Mplus and indirect-effect analyses
+
+Run the relevant `.inp` files in Mplus, then estimate indirect effects with:
+
+```bash
+Rscript indirect_effect.R
+```
+
+## Notes
+
+- The scripts are written with English comments to support reuse and adaptation.
+- Paths are relative to the project structure and are intended for a local repository layout.
+- The figure script depends on the prepared data file generated by `data_prep.R`.
+
+## Data protection note
+
+The study data use a pseudonymous participant identifier (`userId`) to link repeated measurements within participants. The raw files should be handled according to institutional ethics and data-protection requirements.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License. See [LICENSE](./LICENSE) for details.
 
-## Citation and reproducibility
+## Citation
 
-This repository is intended for scientific reuse and transparent replication. If you adapt or extend the code, please cite the underlying study and clearly document any modifications.
+If you reuse or adapt this code, please cite the underlying study and clearly document any modifications to the original workflow.
