@@ -1,4 +1,4 @@
-# Yoga and Boredom Study: Analysis Code
+# Yoga Boredom Study: Analysis Code
 
 This repository contains the reproducible analysis workflow for the longitudinal yoga and boredom study. It includes data-preparation scripts, Mplus model specifications, and scripts for indirect-effect calculations used in the mediation analyses.
 
