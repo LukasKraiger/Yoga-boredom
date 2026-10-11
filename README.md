@@ -64,7 +64,7 @@ To reproduce the analyses, you need:
 
 ## Data protection and reuse
 
-The scripts use the pseudonymous `userId` variable to link repeated measurements within the same participant while avoiding direct personal identifiers in the analytical data. Please handle the raw data according to the study’s ethics and data-protection requirements.
+The scripts use the pseudonymous `userId` variable to link repeated measurements within the same participant while avoiding direct personal identifiers in the analytical data.
 
 ## License
 
