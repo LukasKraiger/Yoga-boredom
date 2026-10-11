@@ -17,6 +17,9 @@ Thumbs.db
 *.lst
 *.dat
 
+# Raw source data are retrieved from Zenodo and kept out of Git.
+/Data/raw/*.csv
+
 # Project-specific generated files
 *.tmp
 *.bak

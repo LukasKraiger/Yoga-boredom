@@ -13,8 +13,8 @@ setsource()
 
 # Read the baseline questionnaire and the repeated post-session assessments.
 # These are the source files from which the prepared analysis dataset is derived.
-start_df <- read.data("../Data/raw/Start questionnaire.csv")
-esm_df <- read.data("../Data/raw/Please complete after each session.csv")
+start_df <- read.data("Data/raw/Start questionnaire.csv")
+esm_df <- read.data("Data/raw/Please complete after each session.csv")
 
 # Remove administrative and test participants from the raw data.
 # These accounts are not part of the study sample and should not appear in the
@@ -103,6 +103,6 @@ df_MPlus_scale_intervals_ordered[, -1] <- round(df_MPlus_scale_intervals_ordered
 # for the repeated-measures mediation models.
 prepareMplusData(
   df_MPlus_scale_intervals_ordered,
-  filename = "../Data/MPLUS_scale_ordered_intervals2.dat",
+  filename = "Data/MPLUS_scale_ordered_intervals2.dat",
   inpfile = TRUE
 )

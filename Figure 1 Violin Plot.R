@@ -9,8 +9,8 @@ library(ggplot2)
 library(tidyr)
 library(dplyr)
 
-# Identify the project root robustly whether the script is run from the project
-# root or from the Code/ folder.
+# Identify the repository root when the script is run from the repository root
+# or one of its parent directories.
 find_project_root <- function() {
   cwd <- getwd()
   candidates <- c(
@@ -26,7 +26,7 @@ find_project_root <- function() {
   }
 
   for (candidate in candidates) {
-    if (dir.exists(file.path(candidate, "Data")) && dir.exists(file.path(candidate, "Code"))) {
+    if (dir.exists(file.path(candidate, "Data")) && file.exists(file.path(candidate, "data_prep.R"))) {
       return(normalizePath(candidate))
     }
   }
@@ -36,12 +36,12 @@ find_project_root <- function() {
 
 project_root <- find_project_root()
 data_file <- file.path(project_root, "Data", "MPLUS_scale_ordered_intervals2.dat")
-prep_script <- file.path(project_root, "Code", "data_prep.R")
+prep_script <- file.path(project_root, "data_prep.R")
 
 if (!file.exists(data_file)) {
   if (file.exists(prep_script)) {
     message("Prepared dataset not found. Running data_prep.R first...")
-    source(prep_script)
+    source(prep_script, chdir = TRUE)
   } else {
     stop("Prepared dataset not found and data_prep.R was not found. Run data_prep.R before this figure script.")
   }
@@ -99,5 +99,5 @@ p <- ggplot(df_long, aes(x = "", y = Score, color = Variable)) +
     axis.text.y = element_text(size = 12)
   )
 
-output_file <- file.path(project_root, "Code", "violin_panel_colour_bigger.png")
+output_file <- file.path(project_root, "violin_panel_colour_bigger.png")
 ggsave(output_file, plot = p, width = 12, height = 6, dpi = 300)

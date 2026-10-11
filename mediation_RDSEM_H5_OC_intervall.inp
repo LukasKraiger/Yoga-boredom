@@ -1,5 +1,5 @@
 TITLE: Valence - Mediation analysis using DSEM according to Fang et al.
-DATA: FILE = "../../../1_Data/2_AnalysisData/MPLUS_scale_ordered_intervals2.dat";
+DATA: FILE = "Data/MPLUS_scale_ordered_intervals2.dat";
 VARIABLE:
 	NAMES = userId BO VA OC UC MO intervaldays;
 	USEVARIABLES = userId OC MO time;
